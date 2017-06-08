@@ -1,0 +1,19 @@
+<header class="mdc-toolbar mdc-toolbar--fixed accent">
+  <div class="mdc-toolbar__row">
+    <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+      {{#link-to "home"}}<img class="logo" src="images/cube.png" height="24" />{{/link-to}}
+      <span class="mdc-toolbar__title">
+        {{title}}
+      </span>
+    </section>
+    {{#if authentication.authenticated}}
+	    <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
+        <div class="text-welcome">Hello, {{#link-to "account"}} {{cognito.user.username}} {{/link-to}}</div>
+	      <button class="mdc-button mdc-button--accent" {{action "logout"}}>Logout</button>
+	    </section>
+    {{/if}}
+  </div>
+</header>
+<main class="mdc-toolbar-fixed-adjust">
+	{{yield}}
+</main>

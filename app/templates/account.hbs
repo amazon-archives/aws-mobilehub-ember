@@ -1,0 +1,139 @@
+<div class="mdc-layout-grid">
+	<div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+		<nav class="mdc-permanent-drawer mdc-typography">
+		  <div class="mdc-permanent-drawer__toolbar-spacer">
+		  	<h4>My Account</h4>
+		  </div>
+		  <div class="mdc-permanent-drawer__content">
+		    <nav id="icon-with-text-demo" class="mdc-list">
+		      <a class="mdc-list-item mdc-permanent-drawer--selected session" href="javascript:void(null)" {{action "gotoSection" "session"}}>
+		        <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">perm_identity</i>Session Details
+		      </a>
+		      <a class="mdc-list-item attributes" href="javascript:void(null)" {{action "gotoSection" "attributes"}}>
+		        <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">contacts</i>User Attributes
+		      </a>
+		    </nav>
+		  </div>
+		</nav>
+	</div>
+	
+	<div id="accountSections" class="mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
+		
+		<div class="container account-section session">
+			<div class="mdc-card">
+				<section class="mdc-card__primary">
+					<h1 class="mdc-card__title mdc-card__title--large">	
+						Session Expiration
+					</h1>
+					<h4 class="mdc-card__subtitle">{{expireTime}}</h4>
+				</section>
+				<section class="mdc-card__actions">
+				    <button class="mdc-button mdc-button--compact mdc-card__action" {{action "refreshCredentials"}}>
+				    	Refresh
+				    </button>
+			  	</section>
+			</div>
+
+			<div class="mdc-card">
+			  <section class="mdc-card__primary">
+			    <h1 class="mdc-card__title mdc-card__title--large">Cognito User Pools - JWT ID Token</h1>
+			  </section>
+			  <section class="mdc-card__supporting-text">
+			    {{#each-in jwtId as |key val|}}
+			  		<li><strong>{{key}}</strong>  {{ val }}</li>
+			  	{{/each-in}}
+			  </section>
+			</div>
+
+			<div class="mdc-card">
+			  <section class="mdc-card__primary">
+			    <h1 class="mdc-card__title mdc-card__title--large">Cognito User Pools - JWT Access Token</h1>
+			  </section>
+			  <section class="mdc-card__supporting-text">
+			    {{#each-in jwtAccess as |key val|}}
+			  		<li><strong>{{key}}</strong>  {{ val }}</li>
+			  	{{/each-in}}
+			  </section>
+			</div>
+
+			{{outlet}}
+		</div>
+
+		<div class="container account-section attributes hidden">
+			
+			{{#if creating}}
+				<div class="mdc-card">
+					<section class="mdc-card__primary">
+						<h1 class="mdc-card__title mdc-card__title--large">New User Attribute</h1>
+					</section>
+					<section class="mdc-card__supporting-text">
+						<form>
+							<div class="mdc-layout-grid">
+								<div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+									<h4>Name</h4>
+									<div class="mdc-textfield full-width">
+									  {{input class="mdc-textfield__input full-width" type="text" placeholder="Attribute Name e.g. First Name" value=newAttribute.Name disabled=saving required="true"}}
+									</div>
+								</div>
+								<section class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+									<h4>Value</h4>
+									<div class="mdc-textfield full-width">
+									  {{input class="mdc-textfield__input full-width" type="text" placeholder="Attribute Value e.g. John Smith" value=newAttribute.Value disabled=saving required="true"}}
+									</div>
+								</section>
+								<section class="mdc-card__actions mdc-layout-grid__cell--span-12">
+								    <button class="mdc-button mdc-button--compact mdc-card__action" {{action "addAttributes"}}>
+								    	Add
+								    </button>
+								    <button class="mdc-button mdc-button--compact mdc-card__action mdc-button--accent" {{action "cancelAddAttributes"}}>
+								    	Cancel
+								    </button>
+							  	</section>
+							</div>
+						</form>
+					</section>
+				</div>
+			{{/if}}
+
+			<div class="mdc-card">
+				<section class="mdc-card__primary">
+					<h1 class="mdc-card__title mdc-card__title--large">	
+						User Attributes
+					</h1>
+				</section>
+				<section class="mdc-card__supporting-text">
+					<div class="mdc-layout-grid">
+					{{#each cognito.attributes as |attr|}}
+						<div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+							<h4>{{attr.Name}}</h4>
+							<div class="mdc-textfield full-width">
+							  {{input class="mdc-textfield__input full-width disabled" type="text" placeholder=Value value=attr.Value disabled=updating}}
+							</div>
+						</div>
+					{{/each}}
+					</div>
+				</section>
+				<!--
+				<section class="mdc-card__actions">
+					@TODO allow update to email and confirm
+				    <button class="mdc-button mdc-button--compact mdc-card__action" {{action "updateAttributes"}}>
+				    	Update
+				    </button>
+			  	</section>
+			  	-->
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+{{#unless creating}}
+<button class="mdc-fab material-icons create-button" aria-label="Create Note" {{action "createAttribute"}} title="Add User Attribute">
+  <span class="mdc-fab__icon">
+    <strong>&plus;</strong>
+  </span>
+</button>
+{{/unless}}
+
+{{ui-notify}}

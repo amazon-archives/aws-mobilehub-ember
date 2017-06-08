@@ -1,0 +1,32 @@
+{{#if creating}}
+<div class="container">
+  <div class="mdc-card">
+    <section class="mdc-card__primary">
+      <h1 class="mdc-card__title mdc-card__title--large">Create a New Note</h1>
+      <h2 class="mdc-card__subtitle"></h2>
+    </section>
+    <section class="mdc-card__supporting-text">
+      <div class="mdc-layout-grid">
+        <div class="mdc-textfield mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+          {{input class="mdc-textfield__input full-width" type="text" placeholder="Title" value=title}}
+        </div>
+        <div class="mdc-textfield mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
+          {{textarea class="mdc-textfield__input full-width" placeholder="Content" value=content}}
+        </div>
+      </div>
+    </section>
+    <section class="mdc-card__actions">
+      <button class="mdc-button mdc-button--compact mdc-card__action" {{action "save"}}>Save Note</button>
+      <button class="mdc-button mdc-button--compact mdc-card__action mdc-button--accent" {{action "cancelCreate"}}>Cancel</button>
+    </section>
+  </div>
+</div>
+{{/if}}
+
+<button class="mdc-fab material-icons create-button" aria-label="Create Note" {{action "create"}}>
+  <span class="mdc-fab__icon">
+    <strong>&plus;</strong>
+  </span>
+</button>
+
+{{yield}}

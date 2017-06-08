@@ -1,0 +1,5 @@
+{{#unless authentication.authenticated}}
+	{{aws-cognito-auth}}
+{{/unless}}
+
+{{outlet}}

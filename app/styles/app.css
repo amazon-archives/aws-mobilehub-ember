@@ -1,0 +1,56 @@
+.hidden {
+	display: none;
+}
+.container {
+	padding:2em;
+}
+.text-danger {
+	color: red;
+}
+.text-success {
+	color: green;
+}
+.text-welcome {
+	color: silver;
+	font-size: smaller;
+	padding-top: 0.8em;
+	padding-right:0.3em;
+}
+.text-welcome a {
+	color: white;
+	text-decoration: none;
+	font-weight: bold;
+}
+.text-welcome a:hover {
+	text-decoration: underline;
+}
+.full-width {
+	width: 100%;
+}
+.loader {
+	margin:0 auto;
+	padding:15px;
+}
+.create-button {
+	position: fixed;
+	bottom: 3em;
+	right: 3em;
+}
+.create-button strong {
+	margin-top: -0.4em;
+}
+.mdc-grid-list .mdc-grid-tile {
+    margin: 0.5em 0.5em;
+}
+.mdc-toolbar {
+	background-color: #333 !important;
+}
+.mdc-toolbar__section--align-start {
+	padding-top: 0.5em;
+}
+.logo {
+	padding-right: 1em;
+}
+a.material-icons {
+	text-decoration: none;
+}
