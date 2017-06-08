@@ -1,3 +1,6 @@
+
+![AWS Architecture Diagram](architecture.png "AWS Architecture")
+
 # EmberJS Serverless Web Application
 
 A serverless web application built with EmberJS using AWS MobileHub import/export functionality. 
@@ -11,7 +14,7 @@ You will need the following things properly installed on your computer.
 * [Git](https://git-scm.com/)
 * [Node.js](https://nodejs.org/) (with NPM)
 * [Ember CLI](https://ember-cli.com/)
-* [PhantomJS](http://phantomjs.org/)
+* [PhantomJS](http://phantomjs.org/) (for tests)
 * [AWS CLI](https://aws.amazon.com/cli)
 
 ## Setup and AWS MobileHub import
@@ -52,9 +55,11 @@ with a pre-built adapter for DynamoDB, located in app/adapters. This adapter abs
 that within your controllers you can work with Ember models.
 
  - app/adapters/note.js 				-> Ember adapter for interacting with DynamoDB
+ - app/serializers/node.js 				-> Serializes data returned from AWS APIs for Ember model data
  - app/models/note.js 					-> Ember model for our DynamoDB items
  - app/initializers/aws.js 				-> AWS JS SDK bootstrap and initialization
  - app/instance-initializers/auth.js 	-> Injection of Cognito resources (authenticated user) into Ember services
+ - app/services/cognito.js 				-> Amazon Cognito Ember service
 
 ### Running Tests
 
