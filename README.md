@@ -27,7 +27,7 @@ Import the provided MobileHub.zip file into AWS MobileHub:
 
 * `git clone https://github.com/awslabs/aws-serverless-ember -b mobilehub`
 * `aws s3 cp s3://your-bucket/aws-config.js ./vendor/aws-config.js`
-* `cd aws-serverless-ember`
+* `aws s3 cp s3://your-bucket/aws-sdk.min.js ./vendor/aws-sdk.min.js`
 * `npm install`
 * `ember serve`
 
@@ -42,11 +42,6 @@ If you update your AWS backend, after updating the AWS Mobile Hub configuration,
 This will download the new `aws-config.js` file with the new configuration values. No update 
 to the app should be neccisary unless you added new functionality. In that case even,
 you can simply refer to the new constants within the Ember app.
-
-You can also update to the latest, updated AWS JavaScript SDK that Mobile Hub generated fror you as well, it is optional
-and included in this repo:
-
-    aws s3 cp s3://your-bucket/aws-sdk.min.js ./vendor/aws-sdk.min.js
 
 ### Ember Code Generators and Adapters
 
@@ -81,10 +76,10 @@ projects root directory:
 
 Then visit your S3 static web hosts url. To retrieve this:
 
-1. Goto MobileHub and click on **Resources** in the left nav
-2. Click on the "hosting" bucket under **Amazon S3 Buckets**
+1. Goto MobileHub and click on **Hosting and Streaming**
+2. Click on **manage** 
 3. Click on **Properties** -> ***Static website hosting***
-4. Visit the **Endpoint** displayed
+4. Use the **Endpoint** displayed
 
 NOTE: If you would like browser URLs to route directly to your Ember routes e.g. visiting http://your-s3-host/home etc. You should add
 "index.html" to the **Error document** as well.
