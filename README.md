@@ -18,12 +18,18 @@ You will need the following things properly installed on your computer.
 * [AWS CLI](https://aws.amazon.com/cli)
 
 ## Setup and AWS MobileHub import
-Import the provided MobileHub.zip file into AWS MobileHub:
 
-1. Navigate to the AWS Mobilehub console 
-2. Import the `MobileHub.zip` file included in this repo. Click **Import Project**
-3. Once the import is complete, click on **Hosting and Streaming**, then **Manage Files** copy/note the Amazon S3 > **your-s3-bucket** at the top of the page
-4. Fork this repo, then, in the root of your cloned project directory run (replace "your-s3-bucket" with the bucket created by MobileHub)
+When you click on the button below, you will be asked to log into the AWS console (if you are not already logged in). Once logged in, you will be prompted to name the project. Accept the name (or change it), then click Import project.
+
+<p align="center">
+<a target="_blank" href="https://console.aws.amazon.com/mobilehub/home?#/?config=https://github.com/awslabs/aws-mobilehub-ember/raw/master/MobileHub.zip">
+<span>
+    <img height="100%" src="https://s3.amazonaws.com/deploytomh/button-deploy-aws-mh.png"/>
+</span>
+</a>
+</p>
+
+Once the import is complete, click on **Hosting and Streaming**, then **Manage Files** copy/note the Amazon S3 > **your-s3-bucket** at the top of the page. Fork this repo, then, in the root of your cloned project directory run (replace "your-s3-bucket" with the bucket created by MobileHub)
 
 * `git clone https://github.com/awslabs/aws-serverless-ember -b mobilehub`
 * `aws s3 cp s3://your-bucket/aws-config.js ./vendor/aws-config.js`
@@ -72,7 +78,7 @@ To deploy the app to your MobileHub generated S3 hosting bucket, use the S3 buck
 projects root directory: 
 
     ember build
-    aws s3 cp ./dist s3://your-s3-bucket/ --recursive --acl public-read
+    aws s3 cp ./dist s3://your-s3-bucket/ --acl public-read
 
 Then visit your S3 static web hosts url. To retrieve this:
 
@@ -83,6 +89,31 @@ Then visit your S3 static web hosts url. To retrieve this:
 
 NOTE: If you would like browser URLs to route directly to your Ember routes e.g. visiting http://your-s3-host/home etc. You should add
 "index.html" to the **Error document** as well.
+
+## Troubleshooting
+
+### Issues accessing via CloudFront:
+
+The default CloudFront distro does not set a **default object** in it's configuration. This should be set to "index.html" within the CloudFront settings:
+
+- Sign in to the AWS Management Console and open the [CloudFront console](https://console.aws.amazon.com/cloudfront/).
+- In the list of distributions in the top pane, select the distribution to update.
+- In the Distribution Details pane, on the General tab, click Edit.
+- In the Edit Distribution dialog box, in the Default Root Object field, enter the file name of the default root object.
+- Enter index.html. Do not add a / before the object name.
+- To save your changes, click Yes, Edit.
+
+### 404/403 etc. type http errors from CloudFront
+
+Sometimes with dynamic JavaScript apps it is usful to add error code mapping to allow the client application to handle the Errors:
+
+ - Sign in to the AWS Management Console and open the [CloudFront console](https://console.aws.amazon.com/cloudfront/)
+ - Click on your distribution
+ - Navigate to the **Error Pages** Tab and click **Create Custom Error Response**
+ - Choose the error code, click "Yes" to Customize Error Response
+ - Enter "/" (without quotes) in the Reponse Page Path, and choose 200 HTTP Response Code
+
+ Usually you'll want to do this for at least 400 and 403 error codes with most JavaScript frameworks.
 
 ## Further Reading / Useful Links
 
