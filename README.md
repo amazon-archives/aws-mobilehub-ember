@@ -1,7 +1,6 @@
+# EmberJS Serverless Web Application
 
 ![AWS Architecture Diagram](architecture.png "AWS Architecture")
-
-# EmberJS Serverless Web Application
 
 A serverless web application built with EmberJS using AWS MobileHub import/export functionality. 
 This web app utilizes AWS MobileHub for it's backend and the MobileHub generated `aws-config.js`
