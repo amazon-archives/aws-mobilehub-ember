@@ -23,26 +23,27 @@ When you click on the button below, you will be asked to log into the AWS consol
 <p align="center">
 <a target="_blank" href="https://console.aws.amazon.com/mobilehub/home?#/?config=https://github.com/awslabs/aws-mobilehub-ember/raw/master/MobileHub.zip">
 <span>
-    <img height="100%" src="https://s3.amazonaws.com/deploytomh/button-deploy-aws-mh.png"/>
+    <img src="https://s3.amazonaws.com/deploytomh/button-deploy-aws-mh.png"/>
 </span>
 </a>
 </p>
 
 Once the import is complete, click on **Hosting and Streaming**, then **Manage Files** copy/note the Amazon S3 > **your-s3-bucket** at the top of the page. Fork this repo, then, in the root of your cloned project directory run (replace "your-s3-bucket" with the bucket created by MobileHub)
 
-* `git clone https://github.com/awslabs/aws-serverless-ember -b mobilehub`
-* `aws s3 cp s3://your-bucket/aws-config.js ./vendor/aws-config.js`
-* `aws s3 cp s3://your-bucket/aws-sdk.min.js ./vendor/aws-sdk.min.js`
+* `git clone https://github.com/awslabs/aws-mobilehub-ember`
+* `aws s3 cp s3://your-hosting-bucket/aws-config.js ./vendor/aws-config.js`
 * `npm install`
 * `ember serve`
 
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 
+> You can also download the aws-config.js from the Mobile Hub console. Navigate to your project in Mobile Hub, click on **Hosting and Streaming**, then click on **Download aws-config.js file**.
+
 ## Updating from Mobile Hub
 
 If you update your AWS backend, after updating the AWS Mobile Hub configuration, run (from the root of your project):
 
-    aws s3 cp s3://your-bucket/aws-config.js ./vendor/aws-config.js
+    aws s3 cp s3://your-hosting-bucket/aws-config.js ./vendor/aws-config.js
 
 This will download the new `aws-config.js` file with the new configuration values. No update 
 to the app should be neccisary unless you added new functionality. In that case even,
