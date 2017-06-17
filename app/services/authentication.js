@@ -52,7 +52,7 @@ export default Ember.Service.extend({
 			auth = this;
 		cognito.clearIdentity()
 			.then(function() {
-				auth.set('authenticated',false);
+				Ember.set(auth, 'authenticated', false);
 				then.resolve();
 			}, function(error) {
 				Ember.Logger.error(error);

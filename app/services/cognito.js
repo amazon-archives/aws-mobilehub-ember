@@ -29,7 +29,7 @@ export default Ember.Service.extend({
 	authentication: Ember.inject.service(),
 	notify: Ember.inject.service(),
 	identity: undefined, 	// cognito credential data
-	id: idPool, 			// cognito identity id
+	id: undefined, 			// cognito identity id
 	userPool: undefined, 	// cognito user pool
 	user: undefined, 		// cognito user (if logged in with user pools)
 	attributes: undefined,	// cognito user attributes
@@ -61,6 +61,7 @@ export default Ember.Service.extend({
 
 		// if the aws initializer has already authenticated we don't need to do this again
 		if ( typeof user !== 'undefined' ) {
+			Ember.Logger.info('Retrieving Temporary Credentials for Cognito User');
 			let params = {
 				'IdentityPoolId': idPool
 			};
@@ -78,7 +79,7 @@ export default Ember.Service.extend({
 				}
 			});
 		}  else if (service) {
-			window.AWS.config.credentials.params.expired = true;
+			Ember.Logger.info('Retrieving Temporary Credentials');
 			window.AWS.config.credentials.get(function(err) {
 				if (err) {
 					Ember.Logger.error(err);
@@ -103,25 +104,15 @@ export default Ember.Service.extend({
 		let then = Ember.RSVP.defer(),
 			user = this.get('user'),
 			userPoolAuth = 'cognito-idp.'+region+'.amazonaws.com/'+userPoolId;
-			Ember.Logger.info('userPoolAuth: ', userPoolAuth);
-			Ember.Logger.info('user: ', user);
 		if (typeof user !== 'undefined') {
-			Ember.Logger.info('Logging out of User Pools');
 			window.AWS.config.credentials.clearCachedId();
+			window.AWS.config.credentials.params.expired = true;
+			Ember.Logger.info('Logging out of User Pools');
 			user.signOut();
 			then.resolve();
 		} else {
-			window.AWS.config.credentials.clearCachedId();
-			window.AWS.config.credentials.params.expired = true;
-			window.AWS.config.credentials.get(function(err,result){
-				if (err) {
-					then.reject(err);
-				} else {
-					then.resolve(result);
-				}
-			});
+			then.reject(err);
 		}
-
 		return then.promise;
 	},
 	/**
@@ -286,7 +277,11 @@ export default Ember.Service.extend({
 			cognitoUser = new window.AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
 		cognitoUser.authenticateUser(authenticationDetails, {
 	        onSuccess: function (result) {
-	        	Ember.Logger.debug('cognitoUser.authenticateUser -> onSuccess: ', result);
+	        	if (window.AWS.config.credentials.params.expired) {
+	        		// If AWS SDK credentials are expired, reload and let the
+	        		// initializer load new credentials
+	        		return window.location.reload();
+	        	}
 				Ember.set(cognito,'user',cognitoUser);
 				cognito.setIdentity(userPoolAuth,result.getIdToken().getJwtToken(), result.getAccessToken().getJwtToken())
 					.then(function() {
@@ -297,7 +292,7 @@ export default Ember.Service.extend({
 					});
 	        },
 	        onFailure: function(err) {
-	            Ember.Logger.error('onFailure: ', err);
+	            Ember.Logger.error('Authentication Error: ', err);
 	            then.reject(err);
 	        },
 	    });

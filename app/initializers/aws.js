@@ -90,8 +90,7 @@ export function initialize(application) {
       if (result) {
         application.register('cognito:user', cognitoUser, {instantiate:false});
         Ember.Logger.debug('You are logged in with Cognito User Pools: ', result);
-        let login = 'cognito-idp.'+region+'.amazonaws.com/'+userPoolId,
-        	logins = {};
+        let login = 'cognito-idp.'+region+'.amazonaws.com/'+userPoolId, logins = {};
         logins[login] = result.getIdToken().getJwtToken();
         getCredentials(application, logins, result.getIdToken().getJwtToken(), result.getAccessToken().getJwtToken());
       } else {

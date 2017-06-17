@@ -52,10 +52,8 @@ export default DS.Adapter.extend({
 		    };
 			client.query(queryParams, function(error, result) {
 		    	if (error) {
-		    		Ember.Logger.error('api error: ', error);
 					Ember.run(null, reject, error);
 		    	} else {
-					Ember.Logger.debug('api response: ', result);
 					Ember.run(null, resolve, result.Items);
 				}
 			});

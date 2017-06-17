@@ -5,8 +5,12 @@ export default Ember.Controller.extend({
 	actions: {
 		onLogout() {
 			var auth = this.get('authentication');
-				auth.logout();
-			this.transitionToRoute('index');
+				auth.logout()
+					.then(() => {
+						this.transitionToRoute('index');
+					}, (error) => {
+						window.location.href = '/';
+					});
 		}
 	}
 });
