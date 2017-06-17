@@ -14,9 +14,7 @@
 import Ember from 'ember';
 
 /* eslint no-undef: "off" */
-const userPoolId = 	aws_user_pools_id || '',
-	  /* eslint no-undef: "off" */
-	  idPool = 		aws_cognito_identity_pool_id || '',
+const idPool = 		aws_cognito_identity_pool_id || '',
       /* eslint no-undef: "off" */
   	  region = 		aws_cognito_region || 'us-east-1';
 
@@ -276,11 +274,9 @@ export default Ember.Service.extend({
 			cognitoUser = new window.AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
 		cognitoUser.authenticateUser(authenticationDetails, {
 	        onSuccess: function (result) {
-	        	if (window.AWS.config.credentials.params.expired) {
-	        		// If AWS SDK credentials are expired, reload and let the
-	        		// initializer load new credentials
-	        		return document.location.reload();
-	        	}
+	        	// reload and let the initializer set the session (keep everything in one place)
+	        	return document.location.reload();
+	        	/*
 				Ember.set(cognito,'user',cognitoUser);
 				cognito.setIdentity(userPoolAuth,result.getIdToken().getJwtToken(), result.getAccessToken().getJwtToken())
 					.then(function() {
@@ -289,6 +285,7 @@ export default Ember.Service.extend({
 					}, function(err) {
 						then.reject(err);
 					});
+				*/
 	        },
 	        onFailure: function(err) {
 	            Ember.Logger.error('Authentication Error: ', err);

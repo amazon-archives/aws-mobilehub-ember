@@ -60,41 +60,6 @@
 		</div>
 
 		<div class="container account-section attributes hidden">
-			<!--
-			{{#if creating}}
-				<div class="mdc-card">
-					<section class="mdc-card__primary">
-						<h1 class="mdc-card__title mdc-card__title--large">New User Attribute</h1>
-					</section>
-					<section class="mdc-card__supporting-text">
-						<form>
-							<div class="mdc-layout-grid">
-								<div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-									<h4>Name</h4>
-									<div class="mdc-textfield full-width">
-									  {{input class="mdc-textfield__input full-width" type="text" placeholder="Attribute Name e.g. First Name" value=newAttribute.Name disabled=saving required="true"}}
-									</div>
-								</div>
-								<section class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12">
-									<h4>Value</h4>
-									<div class="mdc-textfield full-width">
-									  {{input class="mdc-textfield__input full-width" type="text" placeholder="Attribute Value e.g. John Smith" value=newAttribute.Value disabled=saving required="true"}}
-									</div>
-								</section>
-								<section class="mdc-card__actions mdc-layout-grid__cell--span-12">
-								    <button class="mdc-button mdc-button--compact mdc-card__action" {{action "addAttributes"}}>
-								    	Add
-								    </button>
-								    <button class="mdc-button mdc-button--compact mdc-card__action mdc-button--accent" {{action "cancelAddAttributes"}}>
-								    	Cancel
-								    </button>
-							  	</section>
-							</div>
-						</form>
-					</section>
-				</div>
-			{{/if}}
-			-->
 			<div class="mdc-card">
 				<section class="mdc-card__primary">
 					<h1 class="mdc-card__title mdc-card__title--large">	
@@ -113,29 +78,11 @@
 					{{/each}}
 					</div>
 				</section>
-				<!--
-				<section class="mdc-card__actions">
-					@TODO allow update to email and confirm
-				    <button class="mdc-button mdc-button--compact mdc-card__action" {{action "updateAttributes"}}>
-				    	Update
-				    </button>
-			  	</section>
-			  	-->
 			</div>
 		</div>
 
 	</div>
 
 </div>
-
-<!--
-{{#unless creating}}
-<button class="mdc-fab material-icons create-button" aria-label="Create Note" {{action "createAttribute"}} title="Add User Attribute">
-  <span class="mdc-fab__icon">
-    <strong>&plus;</strong>
-  </span>
-</button>
-{{/unless}}
--->
 
 {{ui-notify}}
