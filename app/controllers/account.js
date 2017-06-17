@@ -4,6 +4,7 @@ export default Ember.Controller.extend({
 	authentication: Ember.inject.service(),
 	cognito: Ember.inject.service(),
 	notify: Ember.inject.service(),
+	creating: false,
 	jwtId: Ember.computed('authentication', function() {
 		var token = this.get('authentication').get('token');
 		return window.jwt_decode(token);
