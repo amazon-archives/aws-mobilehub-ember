@@ -81,7 +81,7 @@ that within your controllers you can work with Ember models.
 Mobile Hub will create an S3 static location for testing purposes and a CloudFront distribution for CDN deployment of your application. To deploy the app to your MobileHub generated S3 hosting bucket and CloudFront, use the S3 bucket name obtained above, and simply run from your projects root directory: 
 
     ember build
-    aws s3 cp ./dist s3://your-s3-bucket/ --acl public-read
+    aws s3 cp --recursive ./dist s3://your-s3-bucket/
 
 Then visit your S3 static web hosts url. To retrieve this:
 
