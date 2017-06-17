@@ -102,8 +102,7 @@ export default Ember.Service.extend({
 	 */
 	clearIdentity() {
 		let then = Ember.RSVP.defer(),
-			user = this.get('user'),
-			userPoolAuth = 'cognito-idp.'+region+'.amazonaws.com/'+userPoolId;
+			user = this.get('user');
 		if (typeof user !== 'undefined') {
 			window.AWS.config.credentials.clearCachedId();
 			window.AWS.config.credentials.params.expired = true;
@@ -280,7 +279,7 @@ export default Ember.Service.extend({
 	        	if (window.AWS.config.credentials.params.expired) {
 	        		// If AWS SDK credentials are expired, reload and let the
 	        		// initializer load new credentials
-	        		return window.location.reload();
+	        		return document.location.reload();
 	        	}
 				Ember.set(cognito,'user',cognitoUser);
 				cognito.setIdentity(userPoolAuth,result.getIdToken().getJwtToken(), result.getAccessToken().getJwtToken())

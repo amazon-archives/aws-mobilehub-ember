@@ -8,8 +8,6 @@ export default Ember.Controller.extend({
 				auth.logout()
 					.then(() => {
 						this.transitionToRoute('index');
-					}, (error) => {
-						window.location.href = '/';
 					});
 		}
 	}

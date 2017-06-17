@@ -18,5 +18,3 @@ testem.log
 
 vendor/aws-exports.js
 vendor/aws-config.js
-vendor/aws-sdk.min.js
-vendor/aws-sdk.js
