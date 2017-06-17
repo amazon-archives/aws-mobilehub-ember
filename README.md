@@ -2,9 +2,11 @@
 
 ![AWS Architecture Diagram](architecture.png "AWS Architecture")
 
-A serverless web application built with EmberJS using AWS MobileHub import/export functionality. 
-This web app utilizes AWS MobileHub for it's backend and the MobileHub generated `aws-config.js`
+A serverless mobile web application built with EmberJS using import/export as well as Hosting and Streaming functionality from AWS Mobile Hub. 
+This web app utilizes AWS MobileHub for it's backend resource automation and the MobileHub generated `aws-config.js`
 for connection properties.
+
+For a detailed walkthrough please [follow the blog post](TODOINSERTBLOGPOST).
 
 ## Prerequisites
 
@@ -28,6 +30,8 @@ When you click on the button below, you will be asked to log into the AWS consol
 </a>
 </p>
 
+> You can also manually import from the [Mobile Hub Console](https://console.aws.amazon.com/mobilehub/home) by clicking **Import your project** and then dragging the MobileHub.zip file into the screen.
+
 Once the import is complete, click on **Hosting and Streaming**, then **Manage Files** copy/note the Amazon S3 > **your-s3-bucket** at the top of the page. Fork this repo, then, in the root of your cloned project directory run (replace "your-s3-bucket" with the bucket created by MobileHub)
 
 * `git clone https://github.com/awslabs/aws-mobilehub-ember`
@@ -41,7 +45,7 @@ Once the import is complete, click on **Hosting and Streaming**, then **Manage F
 
 ## Updating from Mobile Hub
 
-If you update your AWS backend, after updating the AWS Mobile Hub configuration, run (from the root of your project):
+If you update your AWS Mobile Hub project by adding or removing features you will need an updated `aws-config.js` file. You can do this by runing the following (from the root of your project):
 
     aws s3 cp s3://your-hosting-bucket/aws-config.js ./vendor/aws-config.js
 
@@ -72,36 +76,40 @@ that within your controllers you can work with Ember models.
 * `ember build` (development)
 * `ember build --environment production` (production)
 
-### Deploying to S3
+### Deploying for Test and Production
 
-To deploy the app to your MobileHub generated S3 hosting bucket, use the S3 bucket name obtained above, and simply run from your
-projects root directory: 
+Mobile Hub will create an S3 static location for testing purposes and a CloudFront distribution for CDN deployment of your application. To deploy the app to your MobileHub generated S3 hosting bucket and CloudFront, use the S3 bucket name obtained above, and simply run from your projects root directory: 
 
     ember build
     aws s3 cp ./dist s3://your-s3-bucket/ --acl public-read
 
 Then visit your S3 static web hosts url. To retrieve this:
 
-1. Goto MobileHub and click on **Hosting and Streaming**
-2. Click on **manage** 
-3. Click on **Properties** -> ***Static website hosting***
-4. Use the **Endpoint** displayed
+1. Go to your MobileHub project and click on **Hosting and Streaming**
+2. Click on the tile **View from S3** 
+
+After a bit of time the file changes you pushed will also propigate to the CloudFront Distribution so that you can click the **View from CloudFromt** tile and browse the site from a CDN for faster performance. You can force this refresh to happen immediately from the **Hosting and Streaming** page:
+
+1. Click **Edit your CDN distribution**
+2. Click the **Invalidations** tab
+3. Select **Create Invalidation** and enter an asterisk (*) to refresh all the content
+
+Once the process completes click the **View from CloudFront** tile in the **Hosting and Streaming** section of Mobile Hub.
 
 NOTE: If you would like browser URLs to route directly to your Ember routes e.g. visiting http://your-s3-host/home etc. You should add
-"index.html" to the **Error document** as well.
+"index.html" to the **Error document** as well in your CloudFront distribution.
+
+### Making changes
+
+Each time you make changes to the application it will need to be built and deployed.  To build and copy to S3:
+
+    ember build
+    aws s3 cp --recursive ./dist s3://your-s3-hosting-bucket/
+
+Then as above either wait for a CloudFront Distribution refresh or force one with an invalidation. We recommend you do development locally testing using `ember serve` and perform the above process for integration testing and deployments.
+
 
 ## Troubleshooting
-
-### Issues accessing via CloudFront:
-
-The default CloudFront distro does not set a **default object** in it's configuration. This should be set to "index.html" within the CloudFront settings:
-
-- Sign in to the AWS Management Console and open the [CloudFront console](https://console.aws.amazon.com/cloudfront/).
-- In the list of distributions in the top pane, select the distribution to update.
-- In the Distribution Details pane, on the General tab, click Edit.
-- In the Edit Distribution dialog box, in the Default Root Object field, enter the file name of the default root object.
-- Enter index.html. Do not add a / before the object name.
-- To save your changes, click Yes, Edit.
 
 ### 404/403 etc. type http errors from CloudFront
 
