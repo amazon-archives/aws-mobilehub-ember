@@ -12,11 +12,8 @@
 * under the License.
 */
 import Ember from 'ember';
-
 /* eslint no-undef: "off" */
-const idPool = 		aws_cognito_identity_pool_id || '',
-      /* eslint no-undef: "off" */
-  	  region = 		aws_cognito_region || 'us-east-1';
+const idPool = 		aws_cognito_identity_pool_id || '';
 
 /**
  * Handles and stores Cognito properties
@@ -268,24 +265,11 @@ export default Ember.Service.extend({
 	        	'Username' : username,
 	        	'Pool' : userPool
 	    	},
-			auth = this.get('authentication'),
-			cognito = this,
-			userPoolAuth = 'cognito-idp.'+region+'.amazonaws.com/'+userPool.userPoolId,
 			cognitoUser = new window.AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
 		cognitoUser.authenticateUser(authenticationDetails, {
-	        onSuccess: function (result) {
+	        onSuccess: function (/*result*/) {
 	        	// reload and let the initializer set the session (keep everything in one place)
 	        	return document.location.reload();
-	        	/*
-				Ember.set(cognito,'user',cognitoUser);
-				cognito.setIdentity(userPoolAuth,result.getIdToken().getJwtToken(), result.getAccessToken().getJwtToken())
-					.then(function() {
-						Ember.set(auth, 'authenticated', true);
-	        			then.resolve(cognitoUser);
-					}, function(err) {
-						then.reject(err);
-					});
-				*/
 	        },
 	        onFailure: function(err) {
 	            Ember.Logger.error('Authentication Error: ', err);
