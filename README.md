@@ -23,7 +23,7 @@ You will need the following things properly installed on your computer.
 When you click on the button below, you will be asked to log into the AWS console (if you are not already logged in). Once logged in, you will be prompted to name the project. Accept the name (or change it), then click Import project.
 
 <p align="center">
-<a target="_blank" href="https://console.aws.amazon.com/mobilehub/home?#/?config=https://github.com/awslabs/aws-mobilehub-ember/raw/master/AwsMobilehubEmber.zip">
+<a target="_blank" href="https://console.aws.amazon.com/mobilehub/home?#/?config=https://github.com/awslabs/aws-mobilehub-ember/blob/master/AwsMobilehubEmber.zip">
 <span>
     <img src="https://s3.amazonaws.com/deploytomh/button-deploy-aws-mh.png"/>
 </span>
