@@ -6,7 +6,7 @@ A serverless mobile web application built with EmberJS using import/export as we
 This web app utilizes AWS MobileHub for it's backend resource automation and the MobileHub generated `aws-config.js`
 for connection properties.
 
-For a detailed walkthrough please [follow the blog post](TODOINSERTBLOGPOST).
+For a detailed walkthrough please [follow the blog post](https://aws.amazon.com/blogs/mobile/deploying-an-emberjs-mobile-web-application-mobile-hub/).
 
 ## Prerequisites
 
