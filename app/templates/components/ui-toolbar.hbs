@@ -1,8 +1,10 @@
 <header class="mdc-toolbar mdc-toolbar--fixed accent">
   <div class="mdc-toolbar__row">
     <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
-      {{#link-to "home"}}<img class="logo" src="images/cube.png" height="24" />{{/link-to}}
-      <span class="mdc-toolbar__title">
+      {{#link-to "home"}}
+        <div class="logo"></div>
+      {{/link-to}}
+      <span class="mdc-toolbar__title hidden-mobile">
         {{title}}
       </span>
     </section>
@@ -14,6 +16,6 @@
     {{/if}}
   </div>
 </header>
-<main class="mdc-toolbar-fixed-adjust">
+<main class="main mdc-toolbar-fixed-adjust">
 	{{yield}}
 </main>

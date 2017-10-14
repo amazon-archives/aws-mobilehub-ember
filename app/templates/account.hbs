@@ -1,5 +1,5 @@
 <div class="mdc-layout-grid">
-	<div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3">
+	<div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-3 hidden-mobile">
 		<nav class="mdc-permanent-drawer mdc-typography">
 		  <div class="mdc-permanent-drawer__toolbar-spacer">
 		  	<h4>My Account</h4>
@@ -19,7 +19,7 @@
 	
 	<div id="accountSections" class="mdc-layout-grid__cell mdc-layout-grid__cell--span-9">
 		
-		<div class="container account-section session">
+		<div class="account-section session">
 			<div class="mdc-card">
 				<section class="mdc-card__primary">
 					<h1 class="mdc-card__title mdc-card__title--large">	
@@ -59,7 +59,7 @@
 			{{outlet}}
 		</div>
 
-		<div class="container account-section attributes hidden">
+		<div class="account-section attributes hidden">
 			<div class="mdc-card">
 				<section class="mdc-card__primary">
 					<h1 class="mdc-card__title mdc-card__title--large">	

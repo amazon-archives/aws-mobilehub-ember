@@ -1,81 +1,77 @@
-<div class="mdc-layout-grid">
-<div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6">
-	<div class="mdc-card">
-	  	<section class="mdc-card__primary">
-			<form>
-				{{#if authentication.authenticated}}
-					<p>You are currently logged in.</p> 
-				{{else}}
-				
-				{{#if signingIn}}
-					<div class="mdc-textfield">
-					  {{input class="mdc-textfield__input" type="text" placeholder="Username" key-up="validateLoginUsername" value=username disabled=authenticating}}
-					</div>
-
-					<div class="mdc-textfield">
-					  {{input class="mdc-textfield__input {{if passInvalid 'has-warning' 'has-success'}}" type="password" placeholder="Password" key-up="validateLoginPassword" value=password disabled=authenticating enter="login"}}
-					</div>
-				{{/if}}
-
-				{{#if registering}}
-					<div class="mdc-textfield">
-					  {{input class="mdc-textfield__input" type="text" placeholder="Username" key-up="validateLoginUsername" value=username disabled=authenticating}}
-					</div>
-					<div class="mdc-textfield">
-					  {{input class="mdc-textfield__input {{if passInvalid 'has-warning' 'has-success'}}" type="password" placeholder="Password" key-up="validateLoginPassword" value=password disabled=authenticating enter="login"}}
-					</div>
-					<div class="mdc-textfield full-width">
-					   <br/>
-					  {{input class="mdc-textfield__input full-width" type="email" placeholder="Email Address" key-up="validateLoginEmail" value=email disabled=authenticating}}
-					</div>
-				{{/if}}
-
-				{{#if confirmationSent}}
-					<div class="mdc-textfield full-width">
-					   <br/>
-					  {{input class="mdc-textfield__input full-width" type="text" placeholder="Username" value=username disabled=authenticating}}
-					</div>
-				{{/if}}
-
-				{{#if error}}
-				<div class="text-danger">
-					<p>{{error}}</p>
+<div class="mdc-card">
+  	<section class="mdc-card__primary">
+		<form>
+			{{#if authentication.authenticated}}
+				<p>You are currently logged in.</p> 
+			{{else}}
+			
+			{{#if signingIn}}
+				<div class="mdc-textfield">
+				  {{input class="mdc-textfield__input" type="text" placeholder="Username" key-up="validateLoginUsername" value=username disabled=authenticating}}
 				</div>
-				{{/if}}
-
-				{{#if confirmed}}
-					<div class="text-success">
-						&check; &nbsp; Thanks!, email confirmed! You can now login.
-					</div>
-				{{/if}}
-
-				{{#if confirmationSent}}
-					<div>
-						<form onsubmit="return false">
-							<p>Please enter the confirmation code that was sent to your email:</p>
-							<div class="mdc-textfield full-width">
-								{{input type="text" class="mdc-textfield__input full-width" value=confirmationCode placeholder="000000" enter="confirmRegistration"}}
-							</div>
-						</form>
-						<p><a href="javascript:void(null)" {{action 'resendConfirmation'}}>Click here</a> to resend the confirmation.</p>
-						{{#if resentConfirmation}}
-							<p class="text-success">Confirmation sent</p>
-						{{/if}}
-					</div>
-				{{/if}}
+				<div class="mdc-textfield">
+				  {{input class="mdc-textfield__input {{if passInvalid 'has-warning' 'has-success'}}" type="password" placeholder="Password" key-up="validateLoginPassword" value=password disabled=authenticating enter="login"}}
+				</div>
 			{{/if}}
-			</form>
-		</section>
 
-		{{#if authenticating}}
-			<img src="images/preloader.gif" class="loader"/>
-		{{else}}
+			{{#if registering}}
+				<div class="mdc-textfield">
+				  {{input class="mdc-textfield__input" type="text" placeholder="Username" key-up="validateLoginUsername" value=username disabled=authenticating}}
+				</div>
+				<div class="mdc-textfield">
+				  {{input class="mdc-textfield__input {{if passInvalid 'has-warning' 'has-success'}}" type="password" placeholder="Password" key-up="validateLoginPassword" value=password disabled=authenticating enter="login"}}
+				</div>
+				<div class="mdc-textfield full-width">
+				   <br/>
+				  {{input class="mdc-textfield__input full-width" type="email" placeholder="Email Address" key-up="validateLoginEmail" value=email disabled=authenticating}}
+				</div>
+			{{/if}}
 
-		<section class="mdc-card__actions">
+			{{#if confirmationSent}}
+				<div class="mdc-textfield full-width">
+				   <br/>
+				  {{input class="mdc-textfield__input full-width" type="text" placeholder="Username" value=username disabled=authenticating}}
+				</div>
+			{{/if}}
+
+			{{#if error}}
+			<div class="text-danger">
+				<p>{{error}}</p>
+			</div>
+			{{/if}}
+
+			{{#if confirmed}}
+				<div class="text-success">
+					&check; &nbsp; Thanks!, email confirmed! You can now login.
+				</div>
+			{{/if}}
+
+			{{#if confirmationSent}}
+				<div>
+					<form onsubmit="return false">
+						<p>Please enter the confirmation code that was sent to your email:</p>
+						<div class="mdc-textfield full-width">
+							{{input type="text" class="mdc-textfield__input full-width" value=confirmationCode placeholder="000000" enter="confirmRegistration"}}
+						</div>
+					</form>
+					<p><a href="javascript:void(null)" {{action 'resendConfirmation'}}>Click here</a> to resend the confirmation.</p>
+					{{#if resentConfirmation}}
+						<p class="text-success">Confirmation sent</p>
+					{{/if}}
+				</div>
+			{{/if}}
+		{{/if}}
+		</form>
+	</section>
+
+	{{#if authenticating}}
+		<img src="images/preloader.gif" class="loader"/>
+	{{else}}
+
+	<section class="mdc-card__actions">
 		{{#if authentication.authenticated}}
 			<button type="button" class="mdc-button" {{action "logout"}}>Logout</button>
 		{{else}}
-
 			{{#if confirmationSent}}
 				<button type="button" class="mdc-button mdc-card__action {{unless confirmationCode 'disabled'}} {{if confirming 'disabled'}}" {{action "confirmRegistration"}}>
 					Confirm Registration
@@ -84,13 +80,11 @@
 					<span class="text-danger">Cancel</span>
 				</button>
 			{{else}}
-
 				{{#unless registering}}
 				<button type="button" class="mdc-button mdc-card__action {{unless passInvalid 'btn-success' 'btn-default'}} {{if emailInvalid 'disabled'}} {{if passInvalid 'disabled'}} {{if authenticating 'disabled'}}" {{action "login"}}>
 					Login
 				</button>
 				{{/unless}}
-
 				<button type="button" class="mdc-button mdc-card__action {{if emailInvalid 'disabled'}} {{if passInvalid 'disabled'}}" {{action "register"}}>
 					{{#if registering}}
 						Register
@@ -99,24 +93,18 @@
 					{{/if}}
 				</button>
 				{{#if registering}}
-				
 					<button type="button" class="mdc-button mdc-card__action" {{action "cancelRegister"}}>
 						<span class="text-danger">Cancel</span>
 					</button>
-
 				{{else}}
 					{{#unless confirmationSent}}
 						<a class="mdc-button" href="javascript:void(null)" {{action 'showConfirmation'}}>Confirm Email</a>
 					{{/unless}}
 				{{/if}}
 			{{/if}}
-
 		{{/if}}
-		</section>
-
-		{{/if}}
-	</div>
-	{{outlet}}
+	</section>
+	{{/if}}
 </div>
-</div>
+{{outlet}}
 {{yield}}
