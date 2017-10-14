@@ -40,6 +40,11 @@ Once the import is complete, click on **Hosting and Streaming**, then **Manage F
 * `npm install`
 * `ember serve`
 
+To test a PWA (Progressive Web App) install the workbox-cli:
+
+* `npm install -g workbox-cli`
+* `npm start` 
+
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 
 > You can also download the aws-config.js from the Mobile Hub console. Navigate to your project in Mobile Hub, click on **Hosting and Streaming**, then click on **Download aws-config.js file**.
@@ -77,12 +82,28 @@ that within your controllers you can work with Ember models.
 * `ember build` (development)
 * `ember build --environment production` (production)
 
+### Building PWA (Progressive Web App)
+
+Make sure you have workbox installed, then run the npm script:
+
+* `npm install -g workbox-cli`
+* `npm run build`
+
+Deploy the contents of the dist directory.
+
 ### Deploying for Test and Production
 
 Mobile Hub will create an S3 static location for testing purposes and a CloudFront distribution for CDN deployment of your application. To deploy the app to your MobileHub generated S3 hosting bucket and CloudFront, use the S3 bucket name obtained above, and simply run from your projects root directory: 
 
     ember build
     aws s3 cp --recursive ./dist s3://your-s3-bucket/
+
+### Deploying PWA (Progressive Web App)
+
+Make sure you have workbox installed, then run the npm script:
+
+* `npm install -g workbox-cli`
+* `npm run build`
 
 Then visit your S3 static web hosts url. To retrieve this:
 
