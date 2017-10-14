@@ -10,8 +10,8 @@
   },
   "repository": "",
   "scripts": {
-    "build": "ember build",
-    "start": "ember server",
+    "build": "ember build && workbox-cli generate:sw",
+    "start": "workbox-cli generate:sw && ember server",
     "test": "ember test"
   },
   "devDependencies": {
