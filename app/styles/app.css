@@ -81,4 +81,9 @@ a.material-icons {
 	.hidden-mobile {
 		display: none;
 	}
+	.create-button {
+		position: fixed;
+		bottom: 1em;
+		right: 1em;
+	}
 }
