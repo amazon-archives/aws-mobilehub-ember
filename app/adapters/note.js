@@ -15,7 +15,7 @@ import DS from 'ember-data';
 import Ember from 'ember';
 
 /* eslint no-undef: "off" */
-const dynamodbConfig = JSON.parse(aws_dynamodb_table_schemas);
+const dynamodbConfig = aws_dynamodb_table_schemas;
 
 export default DS.Adapter.extend({
     dynamodbClient: new window.AWS.DynamoDB.DocumentClient(),
