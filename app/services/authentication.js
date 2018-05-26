@@ -11,12 +11,11 @@
 * See the License for the specific language governing permissions and limitations
 * under the License.
 */
-//import Ember from 'ember';
+
 import Service from '@ember/service';
 import { defer } from 'rsvp';
 import { set } from '@ember/object';
 import { inject } from '@ember/service';
-import Ember from 'ember';
 const { Logger } = Ember;
 /**
  * The authentication service handles
