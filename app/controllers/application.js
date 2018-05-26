@@ -1,14 +1,15 @@
-import Ember from 'ember';
+import Controller from '@ember/controller';
+import { inject } from '@ember/service';
 
-export default Ember.Controller.extend({
-	authentication: Ember.inject.service(),
-	actions: {
-		onLogout() {
-			var auth = this.get('authentication');
-				auth.logout()
-					.then(() => {
-						this.transitionToRoute('index');
-					});
-		}
-	}
+export default Controller.extend({
+  authentication: inject(),
+  actions: {
+    onLogout() {
+      var auth = this.get('authentication');
+      auth.logout()
+        .then(() => {
+          this.transitionToRoute('index');
+        });
+    }
+  }
 });

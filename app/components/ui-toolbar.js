@@ -1,11 +1,12 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { inject } from '@ember/service';
 
-export default Ember.Component.extend({
-	authentication: Ember.inject.service(),
-	cognito: Ember.inject.service(),
-	actions: {
-		logout() {
-			this.get('logout')();
-		}
-	}
+export default Component.extend({
+  authentication: inject(),
+  cognito: inject(),
+  actions: {
+    logout() {
+      this.get('logout')();
+    }
+  }
 });
