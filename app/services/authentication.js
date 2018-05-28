@@ -16,6 +16,7 @@ import Service from '@ember/service';
 import { defer } from 'rsvp';
 import { set } from '@ember/object';
 import { inject } from '@ember/service';
+import Ember from 'ember';
 const { Logger } = Ember;
 /**
  * The authentication service handles
