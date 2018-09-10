@@ -1,3 +1,5 @@
+> This repo uses AWS Mobile Hub and JavaScript SDKs directly. While this approach will still work, the recommended approach when building front-end/JavaScript applications is now to use [AWS Amplify](https://github.com/aws-amplify/amplify-cli).
+
 # EmberJS Serverless Web Application
 
 ![AWS Architecture Diagram](architecture.png "AWS Architecture")
