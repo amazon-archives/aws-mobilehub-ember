@@ -1,10 +1,12 @@
-import Ember from 'ember';
+import Controller from '@ember/controller';
+import { observer } from '@ember/object';
+import { inject } from '@ember/service';
 
-export default Ember.Controller.extend({
-	authentication: Ember.inject.service(),
-	onAuthenticated: Ember.observer('authentication.authenticated', function() {
-		if (this.get('authentication').authenticated) {
-			this.transitionToRoute('home');
-		}
-	})
+export default Controller.extend({
+  authentication: inject(),
+  onAuthenticated: observer('authentication.authenticated', function () {
+    if (this.get('authentication').authenticated) {
+      this.transitionToRoute('home');
+    }
+  })
 });

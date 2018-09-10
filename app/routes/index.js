@@ -1,11 +1,13 @@
-import Ember from 'ember';
+//import Ember from 'ember';
+import Route from '@ember/routing/route';
+import { inject } from '@ember/service';
 
-export default Ember.Route.extend({
-	authentication: Ember.inject.service(),
-	beforeModel() {
-		if (this.get('authentication')
-				.authenticated) {
-					this.transitionTo('home');
-		}
-	}
+export default Route.extend({
+  authentication: inject(),
+  beforeModel() {
+    if (this.get('authentication')
+      .authenticated) {
+      this.transitionTo('home');
+    }
+  }
 });

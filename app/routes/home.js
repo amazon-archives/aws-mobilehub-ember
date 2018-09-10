@@ -1,16 +1,18 @@
-import Ember from 'ember';
+import Route from '@ember/routing/route';
+import { hash } from 'rsvp';
+import { inject } from '@ember/service';
 
-export default Ember.Route.extend({
-	authentication: Ember.inject.service(),
-	beforeModel() {
-		var auth = this.get('authentication');
-		if (!auth.authenticated) {
-			this.transitionTo('index');
-		}
-	},
-	model() {
-		return Ember.RSVP.hash({
-			notes: this.get('store').findAll('note')
-		});
-	}
+export default Route.extend({
+  authentication: inject(),
+  beforeModel() {
+    var auth = this.get('authentication');
+    if (!auth.authenticated) {
+      this.transitionTo('index');
+    }
+  },
+  model() {
+    return hash({
+      notes: this.get('store').findAll('note')
+    });
+  }
 });

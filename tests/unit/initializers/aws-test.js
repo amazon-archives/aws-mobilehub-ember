@@ -1,12 +1,13 @@
-import Ember from 'ember';
+import Application from '@ember/application';
 import { initialize } from 'ember-mobilehub-tester/initializers/aws';
 import { module, test } from 'qunit';
+import { run } from '@ember/runloop';
 import destroyApp from '../../helpers/destroy-app';
 
 module('Unit | Initializer | aws', {
   beforeEach() {
-    Ember.run(() => {
-      this.application = Ember.Application.create();
+    run(() => {
+      this.application = Application.create();
       this.application.deferReadiness();
     });
   },
@@ -16,7 +17,7 @@ module('Unit | Initializer | aws', {
 });
 
 // Replace this with your real tests.
-test('it works', function(assert) {
+test('it works', function (assert) {
   initialize(this.application);
 
   // you would normally confirm the results of the initializer here
